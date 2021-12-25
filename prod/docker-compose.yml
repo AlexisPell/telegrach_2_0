@@ -1,0 +1,73 @@
+version: '3.7'
+
+services:
+  # WEB
+  web:
+    container_name: web
+    build:
+      context: ./../services/web
+      dockerfile: docker/Dockerfile.prod
+    ports:
+      - '3000:3000'
+      - '49153:49153'
+    networks:
+      - webnet
+    restart: always
+    volumes:
+      - ./../services/web:/app
+      - /app/node_modules
+      - /app/.next
+
+  # REDIS
+  redis:
+    container_name: redis
+    restart: always
+    image: redis:5
+    networks:
+      - webnet
+
+  # MONGO
+  mongo:
+    container_name: mongo
+    hostname: mongo
+    command: --quiet
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    networks:
+      - webnet
+
+  # PROXY SERVER
+  proxy:
+    build: ./../nginx
+    container_name: proxy
+    hostname: proxy
+    ports:
+      - 80:80
+      - 8080:8080
+    networks:
+      - webnet
+    restart: always
+
+  # BACK
+  back:
+    container_name: back
+    hostname: back
+    build: ./../services/back
+    volumes:
+      - ./../services/back:/app
+      - /app/node_modules
+    ports:
+      - 5000:5000
+    restart: always
+    env_file:
+      - .env.production
+    networks:
+      - webnet
+    depends_on:
+      - redis
+      - mongo
+
+networks:
+  webnet:

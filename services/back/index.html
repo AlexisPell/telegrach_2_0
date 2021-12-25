@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Websockets UI</title>
+  <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+  <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id='v-app'>
+    <h1>{{ title }}</h1>
+
+    <form v-model="text" type="text">
+      <input type="text" v-model='text'>
+      <button type='submit' @click.prevent='sendMessage()'>send</button>
+    </form>
+
+    <button type='button' @click.prevent='getMe()'>Get me</button>
+
+    <p>
+      <ul>
+        <li v-for='msg of messages'>{{msg}}</li>
+      </ul>
+    </p>
+
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: "#v-app",
+      data: {
+        title: "Websocket tester",
+        text: "",
+        messages: ['Some msg', '2nd msg'],
+        socket: null
+      },
+      methods: {
+        sendMessage() {
+          console.log('On Send:', this.socket)
+          this.socket.emit('msgToServer', this.text)
+          console.log('Sended:', this.text)
+          this.text = ''
+        },
+        receiveMessage(msg) {
+          console.log('Receieved:', msg)
+          this.messages.push(msg)
+        },
+        async getMe() {
+          const me = await fetch('http://localhost:5000/api/v1/auth/test').then(me => me.json())
+          console.log('ME:', me)
+        }
+      },
+      created() {
+        console.log('IO', io)
+        this.socket = io('http://localhost:5000')
+        this.socket.on('msgToClient', (msg) => {
+          this.receiveMessage(msg)
+        })
+      }
+    })
+  </script>
+</body>
+</html>
