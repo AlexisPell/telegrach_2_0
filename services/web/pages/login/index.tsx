@@ -103,7 +103,7 @@ const LoginPage: NextPage<LoginPageProps> = ({}) => {
 					<div className='mb-4' />
 					<Tip showError={!!errors.email} text={errors.email} />
 					<Tip showError={!!errors.password} text={errors.password} />
-					<Tip showError={!!error} text={error} />
+					{/* <Tip showError={!!error} text={error} /> */}
 					<Button
 						className='flex justify-center w-full'
 						variant='text'

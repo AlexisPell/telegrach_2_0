@@ -14,14 +14,14 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
 	userReducer,
-	authReducer,
+	authReducer: persistReducer(persistConfig, authReducer),
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const setupStore = () => {
 	return configureStore({
-		reducer: persistedReducer,
+		reducer: rootReducer,
 		middleware: (getDefaultMiddleware) =>
 			getDefaultMiddleware({
 				serializableCheck: {

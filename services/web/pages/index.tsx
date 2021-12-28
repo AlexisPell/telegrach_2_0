@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '../src/hooks/useRedux';
 import router from 'next/router';
 import { authAsyncActions } from '../src/store/auth/authActionCreators';
-import { Navbar } from '../src/components/navbar';
+import { Sidebar } from '../src/components/Sidebar';
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	const api = process.env.API;
@@ -29,17 +29,17 @@ const Home: NextPage<{ api: string }> = ({ api }) => {
 	}, []);
 
 	return (
-		<div className='bg-red-400 w-screen h-screen'>
+		<div className='bg-gray-600 w-screen h-screen'>
 			<Head>
 				<title>Telegrach</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<main className=''>
-				<Navbar />
-				<div className='h-20 w-full bg-blue-400'>
+			<main className='w-full h-full'>
+				<Sidebar />
+				{/* <div className='h-20 w-full bg-blue-400'>
 					<Link href='/penises'>To penises!</Link>
-				</div>
+				</div> */}
 			</main>
 		</div>
 	);
