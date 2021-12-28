@@ -31,7 +31,12 @@ async function bootstrap() {
 
   app.use(cookieParser());
   app.enableCors({
-    origin: ['http://localhost', 'http://localhost:3000'],
+    origin: [
+      'http://localhost',
+      'http://localhost:3000',
+      process.env.WEB_URL as string,
+      `${process.env.WEB_URL}:3000` as string,
+    ],
     credentials: true,
   });
 
