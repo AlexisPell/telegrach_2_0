@@ -14,6 +14,6 @@ export class DiscordAuthController {
   @Get('/discord/redirect')
   @UseGuards(DiscordAuthGuard)
   redirect(@Res() res: any) {
-    res.redirect(`${process.env.WEB_PROXY_API_URL}`);
+    res.redirect(`${process.env.WEB_URL}`);
   }
 }
