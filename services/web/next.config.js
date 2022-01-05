@@ -15,8 +15,8 @@ module.exports = (phase) => {
 	const env = {
 		API: (() => {
 			if (isDev) return 'http://localhost:8080/api/v1';
-			if (isProd) return 'http://alexispell.ru:8080/api/v1';
-			if (isStaging) return 'http://alexispell.ru:8080/api/v1';
+			if (isProd) return 'http://alexispell.com:8080/api/v1';
+			if (isStaging) return 'http://alexispell.com:8080/api/v1';
 			return 'process.env.API IS NOT DEFINED...';
 		})(),
 	};
