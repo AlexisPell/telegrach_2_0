@@ -12,7 +12,7 @@ const tabsData: ITab[] = [
 interface SidebarProps {}
 export const Sidebar: React.FC<SidebarProps> = ({}) => {
 	return (
-		<div className='w-full h-full sm:w-96 bg-gray-700 flex flex-col'>
+		<div className='w-80 h-full sm:w-96 bg-gray-700 flex flex-col'>
 			<Controlbar />
 			<Tabs tabs={tabsData} />
 		</div>

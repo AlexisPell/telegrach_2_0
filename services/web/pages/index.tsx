@@ -35,11 +35,12 @@ const Home: NextPage<{ api: string }> = ({ api }) => {
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 
-			<main className='w-full h-full'>
+			<main className='w-full h-full flex flex-row'>
 				<Sidebar />
 				{/* <div className='h-20 w-full bg-blue-400'>
 					<Link href='/penises'>To penises!</Link>
 				</div> */}
+				<div className=''>SOME MESSAGES HERE</div>
 			</main>
 		</div>
 	);
