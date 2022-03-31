@@ -24,7 +24,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup(`${apiPrefix}/users/docs`, app, document);
+  SwaggerModule.setup(`${apiPrefix}/docs`, app, document);
 
   const redisClient = redis.createClient({ url: process.env.REDIS_URI });
   const RedisStore = connectRedis(session);

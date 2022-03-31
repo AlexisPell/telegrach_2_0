@@ -19,6 +19,7 @@ import { ApiTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger';
 import { User, UserDocument } from 'src/users/user.document';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { UnauthorizedException } from '@nestjs/common';
 
 @ApiTags('Authorization')
 @Controller('auth')
@@ -38,6 +39,7 @@ export class AuthController {
     this.logger.log(`REQUEST USER: ${JSON.stringify(req.user, null, 2)}`);
     // this.logger.log('REQUEST SESSION:', req.session);
     // this.logger.log('REQUEST COOKIE:', req.cookies);
+    if (!req.user) throw new UnauthorizedException('Unauthorized to get me');
     return req.user;
   }
 
